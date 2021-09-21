@@ -1,0 +1,83 @@
+﻿@model IEnumerable<ToDoList.Models.nhanvien>
+@using CaptchaMvc.HtmlHelpers;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/test.cshtml";
+}
+
+<h2>Danh sách nhân viên</h2>
+
+<a href="@Url.Action("ThemNhanVien", "NhanVien")">
+    <button type="submit" class="btn-default" style="color:darkorange;">
+        <i class="fa fa-plus-square"></i>
+        Thêm
+    </button>
+</a>
+<p>
+
+</p>
+@Html.Captcha(5)
+<div class="panel">
+    <div class="panel-body">
+        <table class="table">
+            <tr style="background-color:#1dbb9e; color:white">
+                <th>
+                    Tên nhân viên
+                    <!---@Html.DisplayNameFor(model => model.nhanvien_ten)-->
+                </th>
+                <th>
+                    Giới tính
+                    <!---@Html.DisplayNameFor(model => model.nhanvien_gioitinh)-->
+                </th>
+                <th>
+                    Ngày sinh
+                    <!---@Html.DisplayNameFor(model => model.nhanvien_ngaysinh)-->
+                </th>
+                <th>
+                    CMND
+                    <!---@Html.DisplayNameFor(model => model.nhanvien_cmnd)-->
+                </th>
+                <th>
+                    Chức vụ
+                    <!--@Html.DisplayNameFor(model => model.chucvu.chucvu_ten)--->
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Chức năng
+                </th>
+            </tr>
+
+            @foreach (var item in ViewBag.DSNV)
+            {
+                <tr>
+                    <td>
+                        @item.nhanvien_ten
+                    </td>
+                    <td>
+                        @item.nhanvien_gioitinh
+                    </td>
+                    <td>
+                        @item.nhanvien_ngaysinh.ToString(string.Format("dd/MM/yyy"))
+                    </td>
+                    <td>
+                        @item.nhanvien_cmnd
+                    </td>
+                    <td>
+                        @item.chucvu.chucvu_ten
+                    </td>
+                    <td>
+                        @item.nhanvien_email
+                    </td>
+                    <td>
+                        @Html.ActionLink("Sửa", "SuaNhanVien", new { id = item.nhanvien_id }, new { @class = "label label-warning" }) |
+                        <a class="label label-danger" onclick="return confirm('Xác nhận xóa nhân viên này?');" href="@Url.Action("XoaNhanVien", "NhanVien", new { id = item.nhanvien_id })">Xóa</a> |
+                        @Html.ActionLink("Xem công việc", "XemCVNhanVien", new { id = item.nhanvien_id }, new { @class = "label label-success" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="todolistModelStoreContainer" CdmEntityContainer="todolistEntities">
+    <EntitySetMapping Name="binhluans">
+      <EntityTypeMapping TypeName="todolistModel.binhluan">
+        <MappingFragment StoreEntitySet="binhluan">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="congviec_id" ColumnName="congviec_id" />
+          <ScalarProperty Name="nhanvien_id" ColumnName="nhanvien_id" />
+          <ScalarProperty Name="binhluan_noidung" ColumnName="binhluan_noidung" />
+          <ScalarProperty Name="binhluan_thoigianbinhluan" ColumnName="binhluan_thoigianbinhluan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="chucvus">
+      <EntityTypeMapping TypeName="todolistModel.chucvu">
+        <MappingFragment StoreEntitySet="chucvu">
+          <ScalarProperty Name="chucvu_id" ColumnName="chucvu_id" />
+          <ScalarProperty Name="chucvu_ten" ColumnName="chucvu_ten" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="congviecs">
+      <EntityTypeMapping TypeName="todolistModel.congviec">
+        <MappingFragment StoreEntitySet="congviec">
+          <ScalarProperty Name="congviec_id" ColumnName="congviec_id" />
+          <ScalarProperty Name="congviec_ten" ColumnName="congviec_ten" />
+          <ScalarProperty Name="congviec_ngaybatdau" ColumnName="congviec_ngaybatdau" />
+          <ScalarProperty Name="congviec_ngayketthuc" ColumnName="congviec_ngayketthuc" />
+          <ScalarProperty Name="congviec_ngayhoanthanh" ColumnName="congviec_ngayhoanthanh" />
+          <ScalarProperty Name="phamvi_id" ColumnName="phamvi_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="filechiases">
+      <EntityTypeMapping TypeName="todolistModel.filechiase">
+        <MappingFragment StoreEntitySet="filechiase">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nhanvien_id" ColumnName="nhanvien_id" />
+          <ScalarProperty Name="congviec_id" ColumnName="congviec_id" />
+          <ScalarProperty Name="tenfile" ColumnName="tenfile" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="nhanviens">
+      <EntityTypeMapping TypeName="todolistModel.nhanvien">
+        <MappingFragment StoreEntitySet="nhanvien">
+          <ScalarProperty Name="nhanvien_id" ColumnName="nhanvien_id" />
+          <ScalarProperty Name="nhanvien_ten" ColumnName="nhanvien_ten" />
+          <ScalarProperty Name="nhanvien_gioitinh" ColumnName="nhanvien_gioitinh" />
+          <ScalarProperty Name="nhanvien_ngaysinh" ColumnName="nhanvien_ngaysinh" />
+          <ScalarProperty Name="nhanvien_cmnd" ColumnName="nhanvien_cmnd" />
+          <ScalarProperty Name="nhanvien_email" ColumnName="nhanvien_email" />
+          <ScalarProperty Name="nhanvien_matkhau" ColumnName="nhanvien_matkhau" />
+          <ScalarProperty Name="chucvu_id" ColumnName="chucvu_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="nhanvien_congviec">
+      <EntityTypeMapping TypeName="todolistModel.nhanvien_congviec">
+        <MappingFragment StoreEntitySet="nhanvien_congviec">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nhanvien_id" ColumnName="nhanvien_id" />
+          <ScalarProperty Name="congviec_id" ColumnName="congviec_id" />
+          <ScalarProperty Name="quyen_id" ColumnName="quyen_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="phamvis">
+      <EntityTypeMapping TypeName="todolistModel.phamvi">
+        <MappingFragment StoreEntitySet="phamvi">
+          <ScalarProperty Name="phamvi_id" ColumnName="phamvi_id" />
+          <ScalarProperty Name="phamvi_ten" ColumnName="phamvi_ten" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="quyens">
+      <EntityTypeMapping TypeName="todolistModel.quyen">
+        <MappingFragment StoreEntitySet="quyen">
+          <ScalarProperty Name="quyen_id" ColumnName="quyen_id" />
+          <ScalarProperty Name="quyen_ten" ColumnName="quyen_ten" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

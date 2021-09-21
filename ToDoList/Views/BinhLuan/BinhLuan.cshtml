@@ -1,0 +1,175 @@
+﻿@model ToDoList.Models.binhluan
+
+@{
+    ViewBag.Title = "BinhLuan";
+    Layout = "~/Views/Shared/test.cshtml";
+}
+
+<div class="col-md-6" >
+    <div class="panel">
+        <div class="panel-heading" style=" background-color:#0fd14f; text-align:center; color:white;font-size:20px; ">
+            <h3 class="panel-title">Công việc</h3>
+        </div>
+        <div class="panel-body" style=" width: auto; height: 480px;">
+    <div class="form-horizontal">
+        @foreach (var item in ViewBag.CV)
+        {
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label for="signin-password" class="col-md-8">Tên công việc</label>
+                <div class="col-md-8">
+                    <input type="text" value="@item.congviec_ten" class="form-control" name="congviec_ten" style="width:400px" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="signin-password" class="col-md-8">Ngày bắt dầu</label>
+
+                <div class="col-md-8">
+                    <input type="text" value="@item.congviec_ngaybatdau.ToString(string.Format("dd/MM/yyy"))" name="congviec_ngaybatdau" class="form-control" style="width:400px" disabled/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="signin-password" class="col-md-8">Ngày kết thúc</label>
+                <div class="col-md-8">
+                    <input type="text" value="@item.congviec_ngayketthuc.ToString(string.Format("dd/MM/yyy"))" name="congviec_ngayketthuc" class="form-control" style="width:400px" disabled/>
+
+                </div>
+            </div>
+            if (item.congviec_ngayhoanthanh == null)
+            {
+                <div class="hide">
+                    <label for="signin-password" class="col-md-8">Ngày hoàn thành</label>
+                    <div class="col-md-8">
+                        <input type="text" value="@item.congviec_ngayhoanthanh" name="congviec_ngayhoanthanh" class="form-control" style="width:170px" />
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label for="signin-password" class="col-md-8">Ngày hoàn thành</label>
+                    <div class="col-md-8">
+                        <input type="text" value="@item.congviec_ngayhoanthanh.ToString(string.Format("dd/MM/yyy"))" name="congviec_ngayhoanthanh" class="form-control" style="width:400px" disabled/>
+                    </div>
+                </div>
+            }
+
+
+            <div class="form-group">
+                <label for="signin-password" class="col-md-8">Phạm vi</label>
+                <div class="col-md-8">
+                    <input type="text" name="phamvi_id" value="@item.phamvi.phamvi_ten" class="form-control" style="width:400px" disabled/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="signin-password" class="col-md-8">File chia sẻ</label>
+                <div class="col-md-8">
+                    <div style="width:400px; height:100px; background-color:#f1f1f1; padding:10px;overflow-y: hidden; overflow-y: auto;"  >
+                        @foreach(var i in ViewBag.File)
+                        {
+                            
+                            <label style=" width:auto; border:solid 1px; padding:3px">@i.tenfile <span><a href="@Url.Action("XoaFile", "BinhLuan", new { id = i.id })" onclick="return confirm('Xóa File này?');" style="color:#df1e1e"><i class="fa fa-times-circle"></i></a></span></label>
+                            
+                            
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <form method="post" action="@Url.Action("ThemFile","BinhLuan")">
+                <input name="congviec_id" class="hide" value="@item.congviec_id"/>
+                <input name="nhanvien_id" class="hide" value="@Session["MaNhanVien"]"/>
+                <div class="form-group">
+                    <input type="file" name="tenfile" class="col-md-8" value="Chọn tệp" required pattern="\S+.*"/>
+                    <button class="col-md-offset-3" type="submit" style="background-color:orange; ">Nộp</button>
+                </div>
+            </form>
+        }
+        
+        
+
+    </div>
+        </div>
+    </div>
+</div>
+<!------------------------------------>
+<div class="col-md-6">
+    
+    <div class="panel">
+        <div class="panel-heading" style=" background-color:#151212; text-align:center; color:white;font-size:20px; ">
+            <h3 class="panel-title">Bình luận</h3>
+        </div>
+        <div class="panel-body" style="overflow-y: hidden; overflow-y: auto; width: auto; height: 405px;">
+            @foreach (var item in ViewBag.dsBL)
+            {
+                if (@item.nhanvien.nhanvien_id == Int32.Parse(Session["MaNhanVien"].ToString()))
+                {
+                    <div style="float:right">
+                        <h4>@item.nhanvien.nhanvien_ten</h4>
+                        <div style="border-radius: 20px; background-color: #8ED7DD; color: white; width: 300px; height: auto; padding: 10px;">
+                            <p>@item.binhluan_noidung</p>
+                            <div style="color:gray">@item.binhluan_thoigianbinhluan</div>
+                        </div>
+                        <div style=""><a href="@Url.Action("XoaBinhLuan", "BinhLuan", new { id = item.id })"><button class="label label-danger"><i class="lnr lnr-trash"></i></button></a></div>
+                    </div>
+                }
+                else
+                {
+                    <div style="float: left">
+                        <h4>@item.nhanvien.nhanvien_ten</h4>
+                        <div style="border-radius: 20px; background-color: cornflowerblue; color: white; width: 300px; height: auto; padding: 10px;">
+                            <p>@item.binhluan_noidung</p>
+                            <div style="color:gray">@item.binhluan_thoigianbinhluan</div>
+                        </div>
+                    </div>
+                }
+
+            }
+            </div>
+        </div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="hide">
+                    @Html.LabelFor(model => model.congviec_id, "congviec_id", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("congviec_id", ViewBag.dsCongViec as SelectList, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.congviec_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="hide">
+                    @Html.LabelFor(model => model.nhanvien_id, "nhanvien_id", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("nhanvien_id", ViewBag.dsNhanVien as SelectList, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.nhanvien_id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.binhluan_noidung, "Nội dung:", htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="text" class="" name="binhluan_noidung" style="width:300px; height:40px" required pattern = "\S+.*"/><span style="margin-left: 20px"><input type="submit" value="Gửi" class="btn btn-primary" /></span>
+                        @Html.ValidationMessageFor(model => model.binhluan_noidung, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="hide">
+                    @Html.LabelFor(model => model.binhluan_thoigianbinhluan, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="datetime" name="binhluan_thoigianbinhluan" class="form-control" value="@DateTime.Now" />
+                        @Html.ValidationMessageFor(model => model.binhluan_thoigianbinhluan, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+            </div>
+        }
+    </div>
+
+
+

@@ -1,0 +1,83 @@
+﻿@model ToDoList.Models.nhanvien_congviec
+
+@{
+    ViewBag.Title = "ThemNguoiLam";
+    Layout = "~/Views/Shared/test.cshtml";
+}
+
+
+<h2>Thêm người làm chung</h2>
+<div class="form-horizontal">
+    <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">Danh sách cnhân viên tham gia công việc</h3>
+        </div>
+        <div class="panel-body" style="overflow-y: hidden; overflow-y: auto; width: auto; height: 200px;">
+            <table class="table">
+                <tr style="background-color:#1dbb9e; color:white">
+                    <th>Tên nhân viên</th>
+                    <th>Tên quyền</th>
+                    <th>Chức năng</th>
+                </tr>
+                @foreach (var item in ViewBag.dsNguoiLam)
+                {
+                    <tr>
+                        <td>@item.nhanvien.nhanvien_ten</td>
+
+                        @if (@item.quyen.quyen_ten == "Người tạo công việc")
+                        {
+                            <td style="color:red">@item.quyen.quyen_ten</td>
+                        }
+                        else
+                        {
+                            <td style="color:green">@item.quyen.quyen_ten</td>
+                        }
+                        <td><a href="@Url.Action("XoaNguoiLam", "CongViec", new { id = item.id })" onclick="return confirm('Xóa người làm ra khỏi công việc này?');"><button class="label label-danger"><i class="lnr lnr-trash"></i> Xóa</button></a></td>
+                    </tr>
+
+                }
+            </table>
+        </div>
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.nhanvien_id, "Chọn nhân viên", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("nhanvien_id", ViewBag.TenNguoiLam as SelectList, htmlAttributes: new { @class = "form-control", @Style = "width: 300px" })
+                @Html.ValidationMessageFor(model => model.nhanvien_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.congviec_id, "Tên công việc", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("congviec_id", ViewBag.TenCongViec as SelectList, htmlAttributes: new { @class = "form-control", @Style = "width: 300px" })
+                @Html.ValidationMessageFor(model => model.congviec_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.quyen_id, "Tên quyền", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("quyen_id", ViewBag.TenQuyen as SelectList, htmlAttributes: new { @class = "form-control", @Style = "width: 300px" })
+                @Html.ValidationMessageFor(model => model.quyen_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Thêm" class="btn btn-default" style="background-color:orange" />
+            </div>
+        </div>
+    
+}
+    </div>
+<div>
+    @Html.ActionLink("Về trang chủ", "Index")
+</div>

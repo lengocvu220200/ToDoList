@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7affa53e11e549069a570bc680c55f81" Name="Diagram1">
+        <EntityTypeShape EntityType="todolistModel.binhluan" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="todolistModel.chucvu" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="todolistModel.congviec" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="todolistModel.filechiase" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="todolistModel.nhanvien" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="todolistModel.nhanvien_congviec" Width="1.5" PointX="8.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="todolistModel.phamvi" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="todolistModel.quyen" Width="1.5" PointX="6" PointY="8.375" IsExpanded="true" />
+        <AssociationConnector Association="todolistModel.FK__binhluan__congvi__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="todolistModel.FK__binhluan__nhanvi__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="todolistModel.fk_htk_id_cv" ManuallyRouted="false" />
+        <AssociationConnector Association="todolistModel.FK__congviec__phamvi__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="todolistModel.FK__filechias__congv__398D8EEE" ManuallyRouted="false" />
+        <AssociationConnector Association="todolistModel.FK__nhanvien___congv__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="todolistModel.FK__filechias__nhanv__38996AB5" ManuallyRouted="false" />
+        <AssociationConnector Association="todolistModel.FK__nhanvien___nhanv__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="todolistModel.FK__nhanvien___quyen__35BCFE0A" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="todolistModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'todolist.dbo.binhluan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="binhluan">
+    <Key>
+      <PropertyRef Name="congviec_id" />
+      <PropertyRef Name="nhanvien_id" />
+      <PropertyRef Name="binhluan_noidung" />
+    </Key>
+    <Property Name="congviec_id" Type="int" Nullable="false" />
+    <Property Name="nhanvien_id" Type="int" Nullable="false" />
+    <Property Name="binhluan_noidung" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="binhluan_thoigianbinhluan" Type="datetime" />
+  </EntityType>
+  <EntityType Name="chucvu">
+    <Key>
+      <PropertyRef Name="chucvu_id" />
+    </Key>
+    <Property Name="chucvu_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="chucvu_ten" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="congviec">
+    <Key>
+      <PropertyRef Name="congviec_id" />
+    </Key>
+    <Property Name="congviec_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="congviec_ten" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="congviec_ngaybatdau" Type="date" Nullable="false" />
+    <Property Name="congviec_ngayketthuc" Type="date" Nullable="false" />
+    <Property Name="congviec_ngayhoanthanh" Type="date" />
+    <Property Name="phamvi_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="nhanvien">
+    <Key>
+      <PropertyRef Name="nhanvien_id" />
+    </Key>
+    <Property Name="nhanvien_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nhanvien_ten" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="nhanvien_gioitinh" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="nhanvien_ngaysinh" Type="date" Nullable="false" />
+    <Property Name="nhanvien_cmnd" Type="int" Nullable="false" />
+    <Property Name="chucvu_id" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'todolist.dbo.nhanvien_congviec' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="nhanvien_congviec">
+    <Key>
+      <PropertyRef Name="nhanvien_id" />
+      <PropertyRef Name="congviec_id" />
+      <PropertyRef Name="quyen_id" />
+    </Key>
+    <Property Name="nhanvien_id" Type="int" Nullable="false" />
+    <Property Name="congviec_id" Type="int" Nullable="false" />
+    <Property Name="quyen_id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="phamvi">
+    <Key>
+      <PropertyRef Name="phamvi_id" />
+    </Key>
+    <Property Name="phamvi_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="phamvi_ten" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="quyen">
+    <Key>
+      <PropertyRef Name="quyen_id" />
+    </Key>
+    <Property Name="quyen_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="quyen_ten" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="taikhoan">
+    <Key>
+      <PropertyRef Name="taikhoan_id" />
+    </Key>
+    <Property Name="taikhoan_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="taikhoan_tendangnhap" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="taikhoan_matkhau" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="nhanvien_id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__binhluan__congvi__398D8EEE">
+    <End Role="congviec" Type="Self.congviec" Multiplicity="1" />
+    <End Role="binhluan" Type="Self.binhluan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="congviec">
+        <PropertyRef Name="congviec_id" />
+      </Principal>
+      <Dependent Role="binhluan">
+        <PropertyRef Name="congviec_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__binhluan__nhanvi__3A81B327">
+    <End Role="nhanvien" Type="Self.nhanvien" Multiplicity="1" />
+    <End Role="binhluan" Type="Self.binhluan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nhanvien">
+        <PropertyRef Name="nhanvien_id" />
+      </Principal>
+      <Dependent Role="binhluan">
+        <PropertyRef Name="nhanvien_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__congviec__phamvi__2E1BDC42">
+    <End Role="phamvi" Type="Self.phamvi" Multiplicity="1" />
+    <End Role="congviec" Type="Self.congviec" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="phamvi">
+        <PropertyRef Name="phamvi_id" />
+      </Principal>
+      <Dependent Role="congviec">
+        <PropertyRef Name="phamvi_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__nhanvien___congv__35BCFE0A">
+    <End Role="congviec" Type="Self.congviec" Multiplicity="1" />
+    <End Role="nhanvien_congviec" Type="Self.nhanvien_congviec" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="congviec">
+        <PropertyRef Name="congviec_id" />
+      </Principal>
+      <Dependent Role="nhanvien_congviec">
+        <PropertyRef Name="congviec_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__nhanvien___nhanv__34C8D9D1">
+    <End Role="nhanvien" Type="Self.nhanvien" Multiplicity="1" />
+    <End Role="nhanvien_congviec" Type="Self.nhanvien_congviec" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nhanvien">
+        <PropertyRef Name="nhanvien_id" />
+      </Principal>
+      <Dependent Role="nhanvien_congviec">
+        <PropertyRef Name="nhanvien_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__nhanvien___quyen__36B12243">
+    <End Role="quyen" Type="Self.quyen" Multiplicity="1" />
+    <End Role="nhanvien_congviec" Type="Self.nhanvien_congviec" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="quyen">
+        <PropertyRef Name="quyen_id" />
+      </Principal>
+      <Dependent Role="nhanvien_congviec">
+        <PropertyRef Name="quyen_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__taikhoan__nhanvi__29572725">
+    <End Role="nhanvien" Type="Self.nhanvien" Multiplicity="1" />
+    <End Role="taikhoan" Type="Self.taikhoan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="nhanvien">
+        <PropertyRef Name="nhanvien_id" />
+      </Principal>
+      <Dependent Role="taikhoan">
+        <PropertyRef Name="nhanvien_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_htk_id_cv">
+    <End Role="chucvu" Type="Self.chucvu" Multiplicity="0..1" />
+    <End Role="nhanvien" Type="Self.nhanvien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="chucvu">
+        <PropertyRef Name="chucvu_id" />
+      </Principal>
+      <Dependent Role="nhanvien">
+        <PropertyRef Name="chucvu_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="todolistModelStoreContainer">
+    <EntitySet Name="chucvu" EntityType="Self.chucvu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="congviec" EntityType="Self.congviec" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="nhanvien" EntityType="Self.nhanvien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="phamvi" EntityType="Self.phamvi" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="quyen" EntityType="Self.quyen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="taikhoan" EntityType="Self.taikhoan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="binhluan" EntityType="Self.binhluan" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [binhluan].[congviec_id] AS [congviec_id], 
+    [binhluan].[nhanvien_id] AS [nhanvien_id], 
+    [binhluan].[binhluan_noidung] AS [binhluan_noidung], 
+    [binhluan].[binhluan_thoigianbinhluan] AS [binhluan_thoigianbinhluan]
+    FROM [dbo].[binhluan] AS [binhluan]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="nhanvien_congviec" EntityType="Self.nhanvien_congviec" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [nhanvien_congviec].[nhanvien_id] AS [nhanvien_id], 
+    [nhanvien_congviec].[congviec_id] AS [congviec_id], 
+    [nhanvien_congviec].[quyen_id] AS [quyen_id]
+    FROM [dbo].[nhanvien_congviec] AS [nhanvien_congviec]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__binhluan__congvi__398D8EEE" Association="Self.FK__binhluan__congvi__398D8EEE">
+      <End Role="congviec" EntitySet="congviec" />
+      <End Role="binhluan" EntitySet="binhluan" />
+    </AssociationSet>
+    <AssociationSet Name="FK__binhluan__nhanvi__3A81B327" Association="Self.FK__binhluan__nhanvi__3A81B327">
+      <End Role="nhanvien" EntitySet="nhanvien" />
+      <End Role="binhluan" EntitySet="binhluan" />
+    </AssociationSet>
+    <AssociationSet Name="FK__congviec__phamvi__2E1BDC42" Association="Self.FK__congviec__phamvi__2E1BDC42">
+      <End Role="phamvi" EntitySet="phamvi" />
+      <End Role="congviec" EntitySet="congviec" />
+    </AssociationSet>
+    <AssociationSet Name="FK__nhanvien___congv__35BCFE0A" Association="Self.FK__nhanvien___congv__35BCFE0A">
+      <End Role="congviec" EntitySet="congviec" />
+      <End Role="nhanvien_congviec" EntitySet="nhanvien_congviec" />
+    </AssociationSet>
+    <AssociationSet Name="FK__nhanvien___nhanv__34C8D9D1" Association="Self.FK__nhanvien___nhanv__34C8D9D1">
+      <End Role="nhanvien" EntitySet="nhanvien" />
+      <End Role="nhanvien_congviec" EntitySet="nhanvien_congviec" />
+    </AssociationSet>
+    <AssociationSet Name="FK__nhanvien___quyen__36B12243" Association="Self.FK__nhanvien___quyen__36B12243">
+      <End Role="quyen" EntitySet="quyen" />
+      <End Role="nhanvien_congviec" EntitySet="nhanvien_congviec" />
+    </AssociationSet>
+    <AssociationSet Name="FK__taikhoan__nhanvi__29572725" Association="Self.FK__taikhoan__nhanvi__29572725">
+      <End Role="nhanvien" EntitySet="nhanvien" />
+      <End Role="taikhoan" EntitySet="taikhoan" />
+    </AssociationSet>
+    <AssociationSet Name="fk_htk_id_cv" Association="Self.fk_htk_id_cv">
+      <End Role="chucvu" EntitySet="chucvu" />
+      <End Role="nhanvien" EntitySet="nhanvien" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

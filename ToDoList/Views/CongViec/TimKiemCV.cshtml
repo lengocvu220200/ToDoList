@@ -1,0 +1,109 @@
+﻿@model IEnumerable<ToDoList.Models.congviec>
+
+@{
+    ViewBag.Title = "TimKiemCV";
+    Layout = "~/Views/Shared/test.cshtml";
+}
+<h2>Tìm kiếm công việc</h2>
+<h3>Từ khóa: <span style="color:red">@ViewBag.TuKhoa</span></h3>
+<p>@Html.ActionLink("Về trang chủ", "Index")</p>
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">Kết quả tìm kiếm</h3>
+    </div>
+    <div class="panel-body" >
+        <table class="table">
+            <tr style="background-color:#1dbb9e; color:white">
+                <th>
+                    Tên công việc
+                    <!---@Html.DisplayNameFor(model => model.congviec_ten)-->
+                </th>
+                <th>
+                    Ngày bắt đầu
+                    <!---@Html.DisplayNameFor(model => model.congviec_ngaybatdau)-->
+                </th>
+                <th>
+                    Ngày kết thúc
+                    <!---@Html.DisplayNameFor(model => model.congviec_ngayketthuc)-->
+                </th>
+                <th>
+                    Hoàn thành
+                </th>
+                <th>
+                    Phạm vi
+                    <!---@Html.DisplayNameFor(model => model.phamvi.phamvi_ten)--->
+                </th>
+                <th>
+                    Trạng thái
+                </th>
+                <th>
+                    Chức năng
+                </th>
+                <th>
+                    Bình luận
+                </th>
+            </tr>
+            @foreach (var item in ViewBag.CV)
+            {
+                <tr>
+                    <td>
+                        @item.congviec_ten
+                    </td>
+                    <td>
+                        @item.congviec_ngaybatdau.ToString(string.Format("dd/MM/yyy"))
+                    </td>
+                    <td>
+                        @item.congviec_ngayketthuc.ToString(string.Format("dd/MM/yyy"))
+                    </td>
+                    <td>
+                        @if (!String.IsNullOrEmpty(Convert.ToString(@item.congviec_ngayhoanthanh)))
+                        {
+                            @item.congviec_ngayhoanthanh.ToString(string.Format("dd/MM/yyy"))
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("HoanThanh", "CongViec", new { id = item.congviec_id })" onclick="return confirm('Xác nhận hòa thành công việc này?');"><button class="label label-success"><i class="fa fa-check-circle"></i></button></a>
+
+                        }
+                    </td>
+                    <td>
+                        @item.phamvi.phamvi_ten
+                    </td>
+                        @if (!String.IsNullOrEmpty(Convert.ToString(@item.congviec_ngayhoanthanh)))
+                        {
+                            if(@item.congviec_ngayhoanthanh < @item.congviec_ngayketthuc)
+                            {
+                                <td style="color:green">Đã xong</td>
+                            }
+                            else
+                            {
+                                <td style="color:red">Nộp trể hạn</td>
+                            }
+                        }
+                        else
+                        {
+                            if (DateTime.Now > @item.congviec_ngayketthuc)
+                            {
+                                <td style="color:red">Chưa làm</td>
+                            }
+                            else
+                            {
+                                <td style="color:green">Đang làm</td>
+                            }
+                        }
+                    
+
+                <td>
+                    <a href="@Url.Action("BinhLuan", "BinhLuan", new { id = item.congviec_id })"><button class="label label-primary"><i class="fa fa-eye"></i> Xem</button></a> |
+                    <a href="@Url.Action("Edit", "CongViec", new { id = item.congviec_id })"><button class="label label-warning"><i class="lnr lnr-pencil"></i> Sửa</button></a> |
+                    <a href="@Url.Action("Delete", "CongViec", new { id = item.congviec_id })" onclick="return confirm('Xóa công việc này?');"><button class="label label-danger"><i class="lnr lnr-trash"></i> Xóa</button></a>
+                </td>
+                <td>
+                    <a href="@Url.Action("ThemNguoiLam", "CongViec", new { id = item.congviec_id })"><button class="label label-success"><i class="fa fa-eye"></i> Xem danh sách</button></a>
+                </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

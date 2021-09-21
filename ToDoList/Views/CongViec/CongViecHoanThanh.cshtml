@@ -1,0 +1,155 @@
+﻿@model IEnumerable<ToDoList.Models.congviec>
+
+@{
+    ViewBag.Title = "CongViecHoanThanh";
+    Layout = "~/Views/Shared/test.cshtml";
+}
+
+<h2>Công việc đã hoàn thành</h2>
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">Danh sách công việc đúng hạn</h3>
+    </div>
+    <div class="panel-body" style="overflow-y: hidden; overflow-y: auto; width: auto; height: 230px;">
+        <table class="table">
+            <tr style="background-color:#1dbb9e; color:white">
+                <th>
+                    Tên công việc
+                    <!---@Html.DisplayNameFor(model => model.congviec_ten)-->
+                </th>
+                <th>
+                    Ngày bắt đầu
+                    <!---@Html.DisplayNameFor(model => model.congviec_ngaybatdau)-->
+                </th>
+                <th>
+                    Ngày kết thúc
+                    <!---@Html.DisplayNameFor(model => model.congviec_ngayketthuc)-->
+                </th>
+                <th>
+                    Hoàn thành
+                </th>
+                <th>
+                    Phạm vi
+                    <!---@Html.DisplayNameFor(model => model.phamvi.phamvi_ten)--->
+                </th>
+                <th>
+                    Trạng thái
+                </th>
+                <th>
+                    Chức năng
+                </th>
+                <th>
+                    Người làm chung
+                </th>
+            </tr>
+
+            @foreach (var item in ViewBag.dunghan)
+            {
+                <tr>
+                    <td>
+                        @item.congviec_ten
+                    </td>
+                    <td>
+                        @item.congviec_ngaybatdau.ToString(string.Format("dd/MM/yyy"))
+                    </td>
+                    <td>
+                        @item.congviec_ngayketthuc.ToString(string.Format("dd/MM/yyy"))
+                    </td>
+                    <td>
+                        @item.congviec_ngayhoanthanh.ToString(string.Format("dd/MM/yyy"))
+                    </td>
+                    <td>
+                        @item.phamvi.phamvi_ten
+                    </td>
+                    <td style="color:green">
+                        Đã xong
+                    </td>
+                    <td>
+                    <a href="@Url.Action("BinhLuan", "BinhLuan", new { id = item.congviec_id })"><button class="label label-primary"><i class="fa fa-eye"></i> Xem</button></a> |
+                    <a href="@Url.Action("Edit", "CongViec", new { id = item.congviec_id })"><button class="label label-warning"><i class="lnr lnr-pencil"></i> Sửa</button></a> |
+                    <a href="@Url.Action("Delete", "CongViec", new { id = item.congviec_id })" onclick="return confirm('Xóa công việc này?');"><button class="label label-danger"><i class="lnr lnr-trash"></i> Xóa</button></a>
+                </td>
+                <td>
+                    <a href="@Url.Action("ThemNguoiLam", "CongViec", new { id = item.congviec_id })"><button class="label label-success"><i class="fa fa-eye"></i> Xem danh sách</button></a>
+                </td>
+                </tr>
+            }
+
+        </table>
+        </div>
+    </div>
+
+<div class="panel">
+    <div class="panel-heading">
+        <h3 class="panel-title">Danh sách công việc trể hạn</h3>
+    </div>
+    <div class="panel-body" style="overflow-y: hidden; overflow-y: auto; width: auto; height: 230px;">
+        <table class="table">
+            <tr style="background-color:#f01313; color:white">
+                <th>
+                    Tên công việc
+                    <!---@Html.DisplayNameFor(model => model.congviec_ten)-->
+                </th>
+                <th>
+                    Ngày bắt đầu
+                    <!---@Html.DisplayNameFor(model => model.congviec_ngaybatdau)-->
+                </th>
+                <th>
+                    Ngày kết thúc
+                    <!---@Html.DisplayNameFor(model => model.congviec_ngayketthuc)-->
+                </th>
+                <th>
+                    Hoàn thành
+                </th>
+                <th>
+
+                    Phạm vi
+                    <!---@Html.DisplayNameFor(model => model.phamvi.phamvi_ten)--->
+                </th>
+                <th>
+                    Trạng thái
+                </th>
+                <th>
+                    Chức năng
+                </th>
+                <th>
+                    Bình luận
+                </th>
+            </tr>
+
+            @foreach (var item in ViewBag.trehan)
+            {
+                <tr>
+                    <td>
+                        @item.congviec_ten
+                    </td>
+                    <td>
+                        @item.congviec_ngaybatdau.ToString(string.Format("dd/MM/yyy"))
+                    </td>
+                    <td>
+                        @item.congviec_ngayketthuc.ToString(string.Format("dd/MM/yyy"))
+                    </td>
+                    <td>
+                        @item.congviec_ngayhoanthanh.ToString(string.Format("dd/MM/yyy"))
+                    </td>
+                    <td>
+                        @item.phamvi.phamvi_ten
+                    </td>
+                    <td style="color:red">
+                        Nộp trễ hạn
+                    </td>
+                    <td>
+                    <a href="@Url.Action("BinhLuan", "BinhLuan", new { id = item.congviec_id })"><button class="label label-primary"><i class="fa fa-eye"></i> Xem</button></a> |
+                    <a href="@Url.Action("Edit", "CongViec", new { id = item.congviec_id })"><button class="label label-warning"><i class="lnr lnr-pencil"></i> Sửa</button></a> |
+                    <a href="@Url.Action("Delete", "CongViec", new { id = item.congviec_id })" onclick="return confirm('Xóa công việc này?');"><button class="label label-danger"><i class="lnr lnr-trash"></i> Xóa</button></a>
+                </td>
+                <td>
+                    <a href="@Url.Action("ThemNguoiLam", "CongViec", new { id = item.congviec_id })"><button class="label label-success"><i class="fa fa-eye"></i> Xem danh sách</button></a>
+                </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

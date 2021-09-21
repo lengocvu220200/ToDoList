@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = null;
+}
+@using CaptchaMvc.HtmlHelpers;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+</head>
+
+<body>
+    <form>
+        <input type="text" />
+        @Html.Captcha(5)
+        <input type="submit" />
+    </form>
+    
+    <input type="text" name="A" />
+    <input type="submit" id="button" name="button" class="button" value="tìm" />
+    <p id="Ketqua">hiển thị kq: </p>
+    <script>
+        $("#button").click(function () {
+            $.ajax({
+                type: 'GET',
+                data: { a: 6, b: 4 },
+                url: 'LoadAjax',
+                success: function (ketqua) {
+                    $('#Ketqua').html(ketqua);
+                }
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+﻿@model ToDoList.Models.congviec
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/test.cshtml";
+}
+
+<div class="col-md-5 col-md-offset-3">
+    <div class="panel">
+        <div class="panel-heading" style=" background-color:#0fd14f; text-align:center; color:white;font-size:20px; ">
+            <h3 class="panel-title">Sửa công việc</h3>
+        </div>
+        <div class="panel-body" style=" width: auto; height: 330px;">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.congviec_id)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.congviec_ten, "Tên công việc", htmlAttributes: new { @class = "col-md-8 col-md-offset-1" })
+                        <div class="col-md-8 col-md-offset-1">
+                            <input type="text" name="congviec_ten" value="@Model.congviec_ten" class="form-control" style="width:350px" required pattern="\S+.*" />
+                            @Html.ValidationMessageFor(model => model.congviec_ten, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-md-8 col-md-offset-1">
+                            @Html.LabelFor(model => model.congviec_ngaybatdau, "Ngày bắt đầu", htmlAttributes: new { @class = "" })
+                            @Html.LabelFor(model => model.congviec_ngayketthuc, "Ngày kết thúc", htmlAttributes: new { @class = "col-md-offset-4" })
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-5 col-md-offset-1">
+                            @Html.EditorFor(model => model.congviec_ngaybatdau, new { htmlAttributes = new { @class = "form-control", @type = "date", @style = "width:160px", @Value = Model.congviec_ngaybatdau.Date.ToString("yyyy-MM-dd") } })
+                            @Html.ValidationMessageFor(model => model.congviec_ngaybatdau, "", new { @class = "text-danger" })
+
+
+                        </div>
+                        <div class="col-md-offset-6">
+                            @Html.EditorFor(model => model.congviec_ngayketthuc, new { htmlAttributes = new { @class = "form-control", @type = "date", @style = "width:160px", @Value = Model.congviec_ngayketthuc.Date.ToString("yyyy-MM-dd") } })
+                            @Html.ValidationMessageFor(model => model.congviec_ngayketthuc, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="hide">
+                        @Html.LabelFor(model => model.congviec_ngayhoanthanh, "Ngày hoàn thành", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.congviec_ngayhoanthanh, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.congviec_ngayhoanthanh, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.phamvi_id, "Phạm vi", htmlAttributes: new { @class = "col-md-8 col-md-offset-1" })
+                        <div class="col-md-8 col-md-offset-1">
+                            @Html.DropDownList("phamvi_id", ViewBag.TenPhamVi as SelectList, htmlAttributes: new { @class = "form-control", @style = "width:350px" })
+                            @Html.ValidationMessageFor(model => model.phamvi_id, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-7 col-md-offset-1">
+                            <button type="submit"  class="btn btn-default" style="width:250px; background-color:orange; color:white"><i class="fa fa-plus-square"></i>  Sửa công việc</button>
+                        </div>
+                        <div style="margin-left: 20px" class="col-md-offset-4"><a href="@Url.Action("Index", "CongViec")"><button type="button" class="btn btn-danger" style="width:100px"><i class="fa fa-times-circle"></i> Hủy</button></a></div>
+                    </div>
+                    
+                </div>
+            }
+            <!---onClick="Hoidap('Xác nhận sửa?', 'Đã sửa thành công.');return false;"-->
+        </div>
+        </div>
+    </div>

@@ -1,0 +1,595 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="todolistModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="binhluan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="congviec_id" Type="int" Nullable="false" />
+          <Property Name="nhanvien_id" Type="int" Nullable="false" />
+          <Property Name="binhluan_noidung" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="binhluan_thoigianbinhluan" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="chucvu">
+          <Key>
+            <PropertyRef Name="chucvu_id" />
+          </Key>
+          <Property Name="chucvu_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="chucvu_ten" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="congviec">
+          <Key>
+            <PropertyRef Name="congviec_id" />
+          </Key>
+          <Property Name="congviec_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="congviec_ten" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="congviec_ngaybatdau" Type="date" Nullable="false" />
+          <Property Name="congviec_ngayketthuc" Type="date" Nullable="false" />
+          <Property Name="congviec_ngayhoanthanh" Type="date" />
+          <Property Name="phamvi_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="filechiase">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nhanvien_id" Type="int" Nullable="false" />
+          <Property Name="congviec_id" Type="int" Nullable="false" />
+          <Property Name="tenfile" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="nhanvien">
+          <Key>
+            <PropertyRef Name="nhanvien_id" />
+          </Key>
+          <Property Name="nhanvien_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nhanvien_ten" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="nhanvien_gioitinh" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="nhanvien_ngaysinh" Type="date" Nullable="false" />
+          <Property Name="nhanvien_cmnd" Type="int" Nullable="false" />
+          <Property Name="nhanvien_email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="nhanvien_matkhau" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="chucvu_id" Type="int" />
+        </EntityType>
+        <EntityType Name="nhanvien_congviec">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nhanvien_id" Type="int" Nullable="false" />
+          <Property Name="congviec_id" Type="int" Nullable="false" />
+          <Property Name="quyen_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="phamvi">
+          <Key>
+            <PropertyRef Name="phamvi_id" />
+          </Key>
+          <Property Name="phamvi_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="phamvi_ten" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="quyen">
+          <Key>
+            <PropertyRef Name="quyen_id" />
+          </Key>
+          <Property Name="quyen_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quyen_ten" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__binhluan__congvi__2E1BDC42">
+          <End Role="congviec" Type="Self.congviec" Multiplicity="1" />
+          <End Role="binhluan" Type="Self.binhluan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="congviec">
+              <PropertyRef Name="congviec_id" />
+            </Principal>
+            <Dependent Role="binhluan">
+              <PropertyRef Name="congviec_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__binhluan__nhanvi__2F10007B">
+          <End Role="nhanvien" Type="Self.nhanvien" Multiplicity="1" />
+          <End Role="binhluan" Type="Self.binhluan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nhanvien">
+              <PropertyRef Name="nhanvien_id" />
+            </Principal>
+            <Dependent Role="binhluan">
+              <PropertyRef Name="nhanvien_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__congviec__phamvi__2B3F6F97">
+          <End Role="phamvi" Type="Self.phamvi" Multiplicity="1" />
+          <End Role="congviec" Type="Self.congviec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="phamvi">
+              <PropertyRef Name="phamvi_id" />
+            </Principal>
+            <Dependent Role="congviec">
+              <PropertyRef Name="phamvi_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__filechias__congv__398D8EEE">
+          <End Role="congviec" Type="Self.congviec" Multiplicity="1" />
+          <End Role="filechiase" Type="Self.filechiase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="congviec">
+              <PropertyRef Name="congviec_id" />
+            </Principal>
+            <Dependent Role="filechiase">
+              <PropertyRef Name="congviec_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__filechias__nhanv__38996AB5">
+          <End Role="nhanvien" Type="Self.nhanvien" Multiplicity="1" />
+          <End Role="filechiase" Type="Self.filechiase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nhanvien">
+              <PropertyRef Name="nhanvien_id" />
+            </Principal>
+            <Dependent Role="filechiase">
+              <PropertyRef Name="nhanvien_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__nhanvien___congv__34C8D9D1">
+          <End Role="congviec" Type="Self.congviec" Multiplicity="1" />
+          <End Role="nhanvien_congviec" Type="Self.nhanvien_congviec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="congviec">
+              <PropertyRef Name="congviec_id" />
+            </Principal>
+            <Dependent Role="nhanvien_congviec">
+              <PropertyRef Name="congviec_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__nhanvien___nhanv__33D4B598">
+          <End Role="nhanvien" Type="Self.nhanvien" Multiplicity="1" />
+          <End Role="nhanvien_congviec" Type="Self.nhanvien_congviec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nhanvien">
+              <PropertyRef Name="nhanvien_id" />
+            </Principal>
+            <Dependent Role="nhanvien_congviec">
+              <PropertyRef Name="nhanvien_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__nhanvien___quyen__35BCFE0A">
+          <End Role="quyen" Type="Self.quyen" Multiplicity="1" />
+          <End Role="nhanvien_congviec" Type="Self.nhanvien_congviec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quyen">
+              <PropertyRef Name="quyen_id" />
+            </Principal>
+            <Dependent Role="nhanvien_congviec">
+              <PropertyRef Name="quyen_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_htk_id_cv">
+          <End Role="chucvu" Type="Self.chucvu" Multiplicity="0..1" />
+          <End Role="nhanvien" Type="Self.nhanvien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chucvu">
+              <PropertyRef Name="chucvu_id" />
+            </Principal>
+            <Dependent Role="nhanvien">
+              <PropertyRef Name="chucvu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="todolistModelStoreContainer">
+          <EntitySet Name="binhluan" EntityType="Self.binhluan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="chucvu" EntityType="Self.chucvu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="congviec" EntityType="Self.congviec" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="filechiase" EntityType="Self.filechiase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="nhanvien" EntityType="Self.nhanvien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="nhanvien_congviec" EntityType="Self.nhanvien_congviec" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="phamvi" EntityType="Self.phamvi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="quyen" EntityType="Self.quyen" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__binhluan__congvi__2E1BDC42" Association="Self.FK__binhluan__congvi__2E1BDC42">
+            <End Role="congviec" EntitySet="congviec" />
+            <End Role="binhluan" EntitySet="binhluan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__binhluan__nhanvi__2F10007B" Association="Self.FK__binhluan__nhanvi__2F10007B">
+            <End Role="nhanvien" EntitySet="nhanvien" />
+            <End Role="binhluan" EntitySet="binhluan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__congviec__phamvi__2B3F6F97" Association="Self.FK__congviec__phamvi__2B3F6F97">
+            <End Role="phamvi" EntitySet="phamvi" />
+            <End Role="congviec" EntitySet="congviec" />
+          </AssociationSet>
+          <AssociationSet Name="FK__filechias__congv__398D8EEE" Association="Self.FK__filechias__congv__398D8EEE">
+            <End Role="congviec" EntitySet="congviec" />
+            <End Role="filechiase" EntitySet="filechiase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__filechias__nhanv__38996AB5" Association="Self.FK__filechias__nhanv__38996AB5">
+            <End Role="nhanvien" EntitySet="nhanvien" />
+            <End Role="filechiase" EntitySet="filechiase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__nhanvien___congv__34C8D9D1" Association="Self.FK__nhanvien___congv__34C8D9D1">
+            <End Role="congviec" EntitySet="congviec" />
+            <End Role="nhanvien_congviec" EntitySet="nhanvien_congviec" />
+          </AssociationSet>
+          <AssociationSet Name="FK__nhanvien___nhanv__33D4B598" Association="Self.FK__nhanvien___nhanv__33D4B598">
+            <End Role="nhanvien" EntitySet="nhanvien" />
+            <End Role="nhanvien_congviec" EntitySet="nhanvien_congviec" />
+          </AssociationSet>
+          <AssociationSet Name="FK__nhanvien___quyen__35BCFE0A" Association="Self.FK__nhanvien___quyen__35BCFE0A">
+            <End Role="quyen" EntitySet="quyen" />
+            <End Role="nhanvien_congviec" EntitySet="nhanvien_congviec" />
+          </AssociationSet>
+          <AssociationSet Name="fk_htk_id_cv" Association="Self.fk_htk_id_cv">
+            <End Role="chucvu" EntitySet="chucvu" />
+            <End Role="nhanvien" EntitySet="nhanvien" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="todolistModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="binhluan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="congviec_id" Type="Int32" Nullable="false" />
+          <Property Name="nhanvien_id" Type="Int32" Nullable="false" />
+          <Property Name="binhluan_noidung" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="binhluan_thoigianbinhluan" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="congviec" Relationship="Self.FK__binhluan__congvi__2E1BDC42" FromRole="binhluan" ToRole="congviec" />
+          <NavigationProperty Name="nhanvien" Relationship="Self.FK__binhluan__nhanvi__2F10007B" FromRole="binhluan" ToRole="nhanvien" />
+        </EntityType>
+        <EntityType Name="chucvu">
+          <Key>
+            <PropertyRef Name="chucvu_id" />
+          </Key>
+          <Property Name="chucvu_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="chucvu_ten" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="nhanviens" Relationship="Self.fk_htk_id_cv" FromRole="chucvu" ToRole="nhanvien" />
+        </EntityType>
+        <EntityType Name="congviec">
+          <Key>
+            <PropertyRef Name="congviec_id" />
+          </Key>
+          <Property Name="congviec_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="congviec_ten" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="congviec_ngaybatdau" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="congviec_ngayketthuc" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="congviec_ngayhoanthanh" Type="DateTime" Precision="0" />
+          <Property Name="phamvi_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="binhluans" Relationship="Self.FK__binhluan__congvi__2E1BDC42" FromRole="congviec" ToRole="binhluan" />
+          <NavigationProperty Name="phamvi" Relationship="Self.FK__congviec__phamvi__2B3F6F97" FromRole="congviec" ToRole="phamvi" />
+          <NavigationProperty Name="filechiases" Relationship="Self.FK__filechias__congv__398D8EEE" FromRole="congviec" ToRole="filechiase" />
+          <NavigationProperty Name="nhanvien_congviec" Relationship="Self.FK__nhanvien___congv__34C8D9D1" FromRole="congviec" ToRole="nhanvien_congviec" />
+        </EntityType>
+        <EntityType Name="filechiase">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nhanvien_id" Type="Int32" Nullable="false" />
+          <Property Name="congviec_id" Type="Int32" Nullable="false" />
+          <Property Name="tenfile" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="congviec" Relationship="Self.FK__filechias__congv__398D8EEE" FromRole="filechiase" ToRole="congviec" />
+          <NavigationProperty Name="nhanvien" Relationship="Self.FK__filechias__nhanv__38996AB5" FromRole="filechiase" ToRole="nhanvien" />
+        </EntityType>
+        <EntityType Name="nhanvien">
+          <Key>
+            <PropertyRef Name="nhanvien_id" />
+          </Key>
+          <Property Name="nhanvien_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nhanvien_ten" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nhanvien_gioitinh" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="nhanvien_ngaysinh" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="nhanvien_cmnd" Type="Int32" Nullable="false" />
+          <Property Name="nhanvien_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nhanvien_matkhau" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="chucvu_id" Type="Int32" />
+          <NavigationProperty Name="binhluans" Relationship="Self.FK__binhluan__nhanvi__2F10007B" FromRole="nhanvien" ToRole="binhluan" />
+          <NavigationProperty Name="chucvu" Relationship="Self.fk_htk_id_cv" FromRole="nhanvien" ToRole="chucvu" />
+          <NavigationProperty Name="filechiases" Relationship="Self.FK__filechias__nhanv__38996AB5" FromRole="nhanvien" ToRole="filechiase" />
+          <NavigationProperty Name="nhanvien_congviec" Relationship="Self.FK__nhanvien___nhanv__33D4B598" FromRole="nhanvien" ToRole="nhanvien_congviec" />
+        </EntityType>
+        <EntityType Name="nhanvien_congviec">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nhanvien_id" Type="Int32" Nullable="false" />
+          <Property Name="congviec_id" Type="Int32" Nullable="false" />
+          <Property Name="quyen_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="congviec" Relationship="Self.FK__nhanvien___congv__34C8D9D1" FromRole="nhanvien_congviec" ToRole="congviec" />
+          <NavigationProperty Name="nhanvien" Relationship="Self.FK__nhanvien___nhanv__33D4B598" FromRole="nhanvien_congviec" ToRole="nhanvien" />
+          <NavigationProperty Name="quyen" Relationship="Self.FK__nhanvien___quyen__35BCFE0A" FromRole="nhanvien_congviec" ToRole="quyen" />
+        </EntityType>
+        <EntityType Name="phamvi">
+          <Key>
+            <PropertyRef Name="phamvi_id" />
+          </Key>
+          <Property Name="phamvi_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="phamvi_ten" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="congviecs" Relationship="Self.FK__congviec__phamvi__2B3F6F97" FromRole="phamvi" ToRole="congviec" />
+        </EntityType>
+        <EntityType Name="quyen">
+          <Key>
+            <PropertyRef Name="quyen_id" />
+          </Key>
+          <Property Name="quyen_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quyen_ten" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="nhanvien_congviec" Relationship="Self.FK__nhanvien___quyen__35BCFE0A" FromRole="quyen" ToRole="nhanvien_congviec" />
+        </EntityType>
+        <Association Name="FK__binhluan__congvi__2E1BDC42">
+          <End Role="congviec" Type="Self.congviec" Multiplicity="1" />
+          <End Role="binhluan" Type="Self.binhluan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="congviec">
+              <PropertyRef Name="congviec_id" />
+            </Principal>
+            <Dependent Role="binhluan">
+              <PropertyRef Name="congviec_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__binhluan__nhanvi__2F10007B">
+          <End Role="nhanvien" Type="Self.nhanvien" Multiplicity="1" />
+          <End Role="binhluan" Type="Self.binhluan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nhanvien">
+              <PropertyRef Name="nhanvien_id" />
+            </Principal>
+            <Dependent Role="binhluan">
+              <PropertyRef Name="nhanvien_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_htk_id_cv">
+          <End Role="chucvu" Type="Self.chucvu" Multiplicity="0..1" />
+          <End Role="nhanvien" Type="Self.nhanvien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chucvu">
+              <PropertyRef Name="chucvu_id" />
+            </Principal>
+            <Dependent Role="nhanvien">
+              <PropertyRef Name="chucvu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__congviec__phamvi__2B3F6F97">
+          <End Role="phamvi" Type="Self.phamvi" Multiplicity="1" />
+          <End Role="congviec" Type="Self.congviec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="phamvi">
+              <PropertyRef Name="phamvi_id" />
+            </Principal>
+            <Dependent Role="congviec">
+              <PropertyRef Name="phamvi_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__filechias__congv__398D8EEE">
+          <End Role="congviec" Type="Self.congviec" Multiplicity="1" />
+          <End Role="filechiase" Type="Self.filechiase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="congviec">
+              <PropertyRef Name="congviec_id" />
+            </Principal>
+            <Dependent Role="filechiase">
+              <PropertyRef Name="congviec_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__nhanvien___congv__34C8D9D1">
+          <End Role="congviec" Type="Self.congviec" Multiplicity="1" />
+          <End Role="nhanvien_congviec" Type="Self.nhanvien_congviec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="congviec">
+              <PropertyRef Name="congviec_id" />
+            </Principal>
+            <Dependent Role="nhanvien_congviec">
+              <PropertyRef Name="congviec_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__filechias__nhanv__38996AB5">
+          <End Role="nhanvien" Type="Self.nhanvien" Multiplicity="1" />
+          <End Role="filechiase" Type="Self.filechiase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nhanvien">
+              <PropertyRef Name="nhanvien_id" />
+            </Principal>
+            <Dependent Role="filechiase">
+              <PropertyRef Name="nhanvien_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__nhanvien___nhanv__33D4B598">
+          <End Role="nhanvien" Type="Self.nhanvien" Multiplicity="1" />
+          <End Role="nhanvien_congviec" Type="Self.nhanvien_congviec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="nhanvien">
+              <PropertyRef Name="nhanvien_id" />
+            </Principal>
+            <Dependent Role="nhanvien_congviec">
+              <PropertyRef Name="nhanvien_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__nhanvien___quyen__35BCFE0A">
+          <End Role="quyen" Type="Self.quyen" Multiplicity="1" />
+          <End Role="nhanvien_congviec" Type="Self.nhanvien_congviec" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quyen">
+              <PropertyRef Name="quyen_id" />
+            </Principal>
+            <Dependent Role="nhanvien_congviec">
+              <PropertyRef Name="quyen_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="todolistEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="binhluans" EntityType="Self.binhluan" />
+          <EntitySet Name="chucvus" EntityType="Self.chucvu" />
+          <EntitySet Name="congviecs" EntityType="Self.congviec" />
+          <EntitySet Name="filechiases" EntityType="Self.filechiase" />
+          <EntitySet Name="nhanviens" EntityType="Self.nhanvien" />
+          <EntitySet Name="nhanvien_congviec" EntityType="Self.nhanvien_congviec" />
+          <EntitySet Name="phamvis" EntityType="Self.phamvi" />
+          <EntitySet Name="quyens" EntityType="Self.quyen" />
+          <AssociationSet Name="FK__binhluan__congvi__2E1BDC42" Association="Self.FK__binhluan__congvi__2E1BDC42">
+            <End Role="congviec" EntitySet="congviecs" />
+            <End Role="binhluan" EntitySet="binhluans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__binhluan__nhanvi__2F10007B" Association="Self.FK__binhluan__nhanvi__2F10007B">
+            <End Role="nhanvien" EntitySet="nhanviens" />
+            <End Role="binhluan" EntitySet="binhluans" />
+          </AssociationSet>
+          <AssociationSet Name="fk_htk_id_cv" Association="Self.fk_htk_id_cv">
+            <End Role="chucvu" EntitySet="chucvus" />
+            <End Role="nhanvien" EntitySet="nhanviens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__congviec__phamvi__2B3F6F97" Association="Self.FK__congviec__phamvi__2B3F6F97">
+            <End Role="phamvi" EntitySet="phamvis" />
+            <End Role="congviec" EntitySet="congviecs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__filechias__congv__398D8EEE" Association="Self.FK__filechias__congv__398D8EEE">
+            <End Role="congviec" EntitySet="congviecs" />
+            <End Role="filechiase" EntitySet="filechiases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__nhanvien___congv__34C8D9D1" Association="Self.FK__nhanvien___congv__34C8D9D1">
+            <End Role="congviec" EntitySet="congviecs" />
+            <End Role="nhanvien_congviec" EntitySet="nhanvien_congviec" />
+          </AssociationSet>
+          <AssociationSet Name="FK__filechias__nhanv__38996AB5" Association="Self.FK__filechias__nhanv__38996AB5">
+            <End Role="nhanvien" EntitySet="nhanviens" />
+            <End Role="filechiase" EntitySet="filechiases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__nhanvien___nhanv__33D4B598" Association="Self.FK__nhanvien___nhanv__33D4B598">
+            <End Role="nhanvien" EntitySet="nhanviens" />
+            <End Role="nhanvien_congviec" EntitySet="nhanvien_congviec" />
+          </AssociationSet>
+          <AssociationSet Name="FK__nhanvien___quyen__35BCFE0A" Association="Self.FK__nhanvien___quyen__35BCFE0A">
+            <End Role="quyen" EntitySet="quyens" />
+            <End Role="nhanvien_congviec" EntitySet="nhanvien_congviec" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="todolistModelStoreContainer" CdmEntityContainer="todolistEntities">
+          <EntitySetMapping Name="binhluans">
+            <EntityTypeMapping TypeName="todolistModel.binhluan">
+              <MappingFragment StoreEntitySet="binhluan">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="congviec_id" ColumnName="congviec_id" />
+                <ScalarProperty Name="nhanvien_id" ColumnName="nhanvien_id" />
+                <ScalarProperty Name="binhluan_noidung" ColumnName="binhluan_noidung" />
+                <ScalarProperty Name="binhluan_thoigianbinhluan" ColumnName="binhluan_thoigianbinhluan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chucvus">
+            <EntityTypeMapping TypeName="todolistModel.chucvu">
+              <MappingFragment StoreEntitySet="chucvu">
+                <ScalarProperty Name="chucvu_id" ColumnName="chucvu_id" />
+                <ScalarProperty Name="chucvu_ten" ColumnName="chucvu_ten" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="congviecs">
+            <EntityTypeMapping TypeName="todolistModel.congviec">
+              <MappingFragment StoreEntitySet="congviec">
+                <ScalarProperty Name="congviec_id" ColumnName="congviec_id" />
+                <ScalarProperty Name="congviec_ten" ColumnName="congviec_ten" />
+                <ScalarProperty Name="congviec_ngaybatdau" ColumnName="congviec_ngaybatdau" />
+                <ScalarProperty Name="congviec_ngayketthuc" ColumnName="congviec_ngayketthuc" />
+                <ScalarProperty Name="congviec_ngayhoanthanh" ColumnName="congviec_ngayhoanthanh" />
+                <ScalarProperty Name="phamvi_id" ColumnName="phamvi_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="filechiases">
+            <EntityTypeMapping TypeName="todolistModel.filechiase">
+              <MappingFragment StoreEntitySet="filechiase">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nhanvien_id" ColumnName="nhanvien_id" />
+                <ScalarProperty Name="congviec_id" ColumnName="congviec_id" />
+                <ScalarProperty Name="tenfile" ColumnName="tenfile" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="nhanviens">
+            <EntityTypeMapping TypeName="todolistModel.nhanvien">
+              <MappingFragment StoreEntitySet="nhanvien">
+                <ScalarProperty Name="nhanvien_id" ColumnName="nhanvien_id" />
+                <ScalarProperty Name="nhanvien_ten" ColumnName="nhanvien_ten" />
+                <ScalarProperty Name="nhanvien_gioitinh" ColumnName="nhanvien_gioitinh" />
+                <ScalarProperty Name="nhanvien_ngaysinh" ColumnName="nhanvien_ngaysinh" />
+                <ScalarProperty Name="nhanvien_cmnd" ColumnName="nhanvien_cmnd" />
+                <ScalarProperty Name="nhanvien_email" ColumnName="nhanvien_email" />
+                <ScalarProperty Name="nhanvien_matkhau" ColumnName="nhanvien_matkhau" />
+                <ScalarProperty Name="chucvu_id" ColumnName="chucvu_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="nhanvien_congviec">
+            <EntityTypeMapping TypeName="todolistModel.nhanvien_congviec">
+              <MappingFragment StoreEntitySet="nhanvien_congviec">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nhanvien_id" ColumnName="nhanvien_id" />
+                <ScalarProperty Name="congviec_id" ColumnName="congviec_id" />
+                <ScalarProperty Name="quyen_id" ColumnName="quyen_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="phamvis">
+            <EntityTypeMapping TypeName="todolistModel.phamvi">
+              <MappingFragment StoreEntitySet="phamvi">
+                <ScalarProperty Name="phamvi_id" ColumnName="phamvi_id" />
+                <ScalarProperty Name="phamvi_ten" ColumnName="phamvi_ten" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quyens">
+            <EntityTypeMapping TypeName="todolistModel.quyen">
+              <MappingFragment StoreEntitySet="quyen">
+                <ScalarProperty Name="quyen_id" ColumnName="quyen_id" />
+                <ScalarProperty Name="quyen_ten" ColumnName="quyen_ten" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

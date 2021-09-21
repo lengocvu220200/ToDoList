@@ -1,0 +1,43 @@
+﻿@model ToDoList.Models.nhanvien
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+@if (ViewBag.Message != null)
+{
+    <p id="loginMessage" style="color:red">@ViewBag.Message</p>
+}
+
+
+@using (Html.BeginForm("Login", "NhanVien", FormMethod.Post, new { @class = "form-auth-small" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label for="signin-email" class="control-label sr-only">Tên đăng nhập</label>
+        <input type="email" class="form-control" placeholder = "Nhập email" onclick="NullMessage()" name="nhanvien_email" required pattern="\S+.*" id="nhap"/>
+        
+        @Html.ValidationMessageFor(model => model.nhanvien_email, "", new { @class = "badge badge-danger" })
+
+
+    </div>
+    <div class="form-group">
+        <label for="signin-password" class="control-label sr-only">Mật khẩu</label>
+        <input type="password" name="nhanvien_matkhau" class="form-control" placeholder = "Mật khẩu" onclick="NullMessage()"  required pattern="\S+.*" id="nhap"/>
+    </div>
+
+    <div class="form-group clearfix">
+        <label class="fancy-checkbox element-left">
+            <input type="checkbox">
+            <span>Remember me</span>
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" value="Login" />
+    </div>
+    
+}
+
+
+
+
